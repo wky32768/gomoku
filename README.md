@@ -1,0 +1,2 @@
+# gomoku
+sth about gomoku
