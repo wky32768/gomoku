@@ -1,2 +1,2 @@
 # gomoku
-sth about gomoku
+sth. about gomoku
