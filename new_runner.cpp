@@ -22,24 +22,32 @@ bool over() {
 	}
 	return 0;
 }
+void f_in(char *a) {
+	freopen(a,"r",stdin);
+}
+void f_out(char *a) {
+	freopen(a,"w",stdout);
+}
+#define cl_in() fclose(stdin)
+#define cl_out() fclose(stdout)
 signed main() {
 	puts("how many plays do you want to play?");
 	int tot;
 	cin>>tot;
-	freopen("log.txt","w",stdout);
+	f_out("log.txt");
 	fclose(stdout);
 	for(int gg=1; gg<=tot; gg++) {
 		memset(a,0,sizeof a);
-		freopen("a.in","w",stdout);
+		f_out("a.in");
 		puts("1");
 		For(i,1,13) {
 			For(j,1,13) cout<<"0 ";
 			puts("");
 		}
-		fclose(stdout);
+		cl_out();
 		while(!over()) {
 			ai1();
-			freopen("a.out","r",stdin);
+			f_in("a.out");
 			cin>>x>>y;
 			a[x][y]=1;
 			fclose(stdin);
@@ -57,7 +65,7 @@ signed main() {
 				win1++;
 				goto L3;
 			}
-			freopen("a.in","w",stdout);
+			f_out("a.in");
 			puts("2");
 			For(i,1,13) {
 				For(j,1,13) cout<<a[i][j]<<" ";
@@ -65,7 +73,7 @@ signed main() {
 			}
 			fclose(stdout);
 			ai2();
-			freopen("a.out","r",stdin);
+			f_in("a.out");
 			cin>>x>>y;
 			a[x][y]=2;
 			fclose(stdin);
@@ -83,7 +91,7 @@ signed main() {
 				win2++;
 				goto L3;
 			}
-			freopen("a.in","w",stdout);
+			f_out("a.in");
 			puts("1");
 			For(i,1,13) {
 				For(j,1,13) cout<<a[i][j]<<" ";
@@ -91,9 +99,13 @@ signed main() {
 			}
 			fclose(stdout);
 		}
-		L3:;
+L3:
+		;
 		cout<<"Game"<<gg<<"/"<<tot<<"\n\n\n";
-		fclose(stdout);
+		cl_out();
+		f_out("CON");
+		cout<<gg<<"/"<<tot<<'\n';
+		cl_out();
 	}
 	freopen("log.txt","a",stdout);
 	cout<<win1<<" "<<win2<<"\n";
