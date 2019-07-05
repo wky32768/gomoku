@@ -2,14 +2,15 @@
 #define int long long
 #define For(i,a,b) for(register int i=a;i<=b;i++)
 using namespace std;
-int a[15][15],x,y,now,win1,win2;
-unsigned long long rnd(){
-    static unsigned long long i=(19260817)^((int)(time(0))),j;
-    i=i*i;
-    i=i/100000;
-    i=i%10000000000;
-    j=i/100000;
-    return j;
+int x,y,now,win1,win2;
+vector<vector<int> >a;
+unsigned long long rnd() {
+	static unsigned long long i=(19260817)^((int)(time(0))),j;
+	i=i*i;
+	i=i/100000;
+	i=i%10000000000;
+	j=i/100000;
+	return j;
 }
 #include "ai1_func.cpp"
 #include "ai2_func.cpp"
@@ -38,6 +39,15 @@ void f_out(char *a) {
 }
 #define cl_in() fclose(stdin)
 #define cl_out() fclose(stdout)
+pair <int,int> ans;
+void clr(vector<vector<int> >&a,int x,int y){
+	a.resize(0);
+	a.resize(x);
+	for(int i=0;i<x;i++){
+		a[i].resize(0);
+		a[i].resize(y); 
+	}
+}
 signed main() {
 	puts("how many plays do you want to play?");
 	int tot;
@@ -45,20 +55,13 @@ signed main() {
 	f_out("log.txt");
 	fclose(stdout);
 	for(int gg=1; gg<=tot; gg++) {
-		memset(a,0,sizeof a);
-		f_out("a.in");
-		puts("1");
-		For(i,1,13) {
-			For(j,1,13) cout<<"0 ";
-			puts("");
-		}
-		cl_out();
+		clr(a,15,15);
 		while(!over()) {
-			ai1();
-			f_in("a.out");
-			cin>>x>>y;
-			a[x][y]=1;
-			fclose(stdin);
+			int tot=0;
+			for(int i=1;i<=13;i++) for(int j=1;j<=13;j++) if(a[i][j]!=0) tot++;
+			if(tot==169) break;
+			ans=ai1(a,1);
+			a[ans.first][ans.second]=1;
 			if(over()) {
 				freopen("log.txt","a",stdout);
 				puts("ai1 win!");
@@ -73,18 +76,8 @@ signed main() {
 				win1++;
 				goto L3;
 			}
-			f_out("a.in");
-			puts("2");
-			For(i,1,13) {
-				For(j,1,13) cout<<a[i][j]<<" ";
-				puts("");
-			}
-			fclose(stdout);
-			ai2();
-			f_in("a.out");
-			cin>>x>>y;
-			a[x][y]=2;
-			fclose(stdin);
+			ans=ai2(a,2);
+			a[ans.first][ans.second]=2;
 			if(over()) {
 				freopen("log.txt","a",stdout);
 				srand((int)time(0));
@@ -99,21 +92,14 @@ signed main() {
 				}
 				win2++;
 				goto L3;
-			} 
-			f_out("a.in");
-			puts("1");
-			For(i,1,13) {
-				For(j,1,13) cout<<a[i][j]<<" ";
-				puts("");
 			}
-			fclose(stdout);
 		}
 L3:
 		;
 		cout<<"Game"<<gg<<"/"<<tot<<"\n\n\n";
 		cl_out();
 		f_out("CON");
-		cout<<gg<<"/"<<tot<<'\n';
+		if(gg%100==0 || gg==tot) cout<<gg<<"/"<<tot<<"==="<<win1<<" "<<win2<<'\n';
 		cl_out();
 	}
 	freopen("log.txt","a",stdout);
