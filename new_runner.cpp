@@ -3,6 +3,14 @@
 #define For(i,a,b) for(register int i=a;i<=b;i++)
 using namespace std;
 int a[15][15],x,y,now,win1,win2;
+unsigned long long rnd(){
+    static unsigned long long i=(19260817)^((int)(time(0))),j;
+    i=i*i;
+    i=i/100000;
+    i=i%10000000000;
+    j=i/100000;
+    return j;
+}
 #include "ai1_func.cpp"
 #include "ai2_func.cpp"
 bool over() {
@@ -16,8 +24,8 @@ bool over() {
 		if(i+4<=13 && j+4<=13) {
 			if(a[i][j]!=0 && a[i][j]==a[i+1][j+1] && a[i+1][j+1]==a[i+2][j+2] && a[i+2][j+2]==a[i+3][j+3] && a[i+3][j+3]==a[i+4][j+4]) return 1;
 		}
-		if(i+4<=13 && j-4<=13) {
-			if(a[i][j]!=0 && a[i][j]==a[i+1][j-1] && a[i+1][j-1]==a[i+2][j-2] && a[i+2][j-2]==a[i+3][i-3] && a[i+3][j-3]==a[i+4][j-4]) return 1;
+		if(i+4<=13 && j-4>=1) {
+			if(a[i][j]!=0 && a[i][j]==a[i+1][j-1] && a[i+1][j-1]==a[i+2][j-2] && a[i+2][j-2]==a[i+3][j-3] && a[i+3][j-3]==a[i+4][j-4]) return 1;
 		}
 	}
 	return 0;
@@ -79,6 +87,7 @@ signed main() {
 			fclose(stdin);
 			if(over()) {
 				freopen("log.txt","a",stdout);
+				srand((int)time(0));
 				puts("ai2 win!");
 				For(i,1,13) {
 					For(j,1,13) {
@@ -90,7 +99,7 @@ signed main() {
 				}
 				win2++;
 				goto L3;
-			}
+			} 
 			f_out("a.in");
 			puts("1");
 			For(i,1,13) {
