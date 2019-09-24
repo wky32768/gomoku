@@ -1,3 +1,6 @@
+/*
+你永远不知道我的AI有多菜(yyhhenry)
+*/
 namespace aq{
 	int q(vector<vector<int> >chessground,int i,int j,int t){
 		if(chessground[i][j]!=0)return 0;
@@ -34,7 +37,7 @@ namespace aq{
 		return mx;
 	}
 }
-pair<int,int> ai1(vector<vector<int> >chessground,int v){
+pair<int,int> ak(vector<vector<int> >chessground,int v){
 	vector<vector<int> >q1,q2;
 	q1.resize(18);
 	q2.resize(18);
@@ -46,33 +49,28 @@ pair<int,int> ai1(vector<vector<int> >chessground,int v){
 			q2[i][j]=aq::q(chessground,i,j,3-v);
 		}
 	}
-	for(int v=14;v>=1;v--){
+	for(int v=12;v>=3;v--){
 		vector<pair<int,int> >tot;
-		for(int g=2;g>=0;g--){
-			for(int i=1;i<=15;i++){
-				for(int j=1;j<=15;j++){
-					if(q1[i][j]>=3*v+g){
-						tot.push_back(make_pair(i,j));
-					}
+		for(int i=1;i<=15;i++){
+			for(int j=1;j<=15;j++){
+				if(q1[i][j]>=v){
+					tot.push_back(make_pair(i,j));
 				}
-			}
-			if(tot.size()!=0){
-				return tot[rnd()%tot.size()];
 			}
 		}
-		for(int g=2;g>=0;g--){
-			for(int i=1;i<=15;i++){
-				for(int j=1;j<=15;j++){
-					if(q2[i][j]>=3*v+g){
-						tot.push_back(make_pair(i,j));
-					}
+		if(tot.size()!=0){
+			return tot[rnd()%tot.size()];
+		}
+		for(int i=1;i<=15;i++){
+			for(int j=1;j<=15;j++){
+				if(q2[i][j]>=v){
+					tot.push_back(make_pair(i,j));
 				}
 			}
-			if(tot.size()!=0){
-				return tot[rnd()%tot.size()];
-			}
+		}
+		if(tot.size()!=0){
+			return tot[rnd()%tot.size()];
 		}
 	}
-	return make_pair(7,7);
+	return make_pair(8,8);
 }
-

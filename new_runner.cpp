@@ -1,9 +1,11 @@
 #include <bits/stdc++.h>
 #define int long long
+#define il inline
 #define For(i, a, b) for (register int i = a; i <= b; i++)
 using namespace std;
 int x, y, now, win1, win2;
 vector<vector<int>/**/> a;
+
 unsigned long long rnd() {
 	static unsigned long long i = (19260817) ^ ((int)(time(0))), j;
 	i = i * i;
@@ -12,9 +14,32 @@ unsigned long long rnd() {
 	j = i / 100000;
 	return j;
 }
-#include "ai1_func.cpp"
-#include "ai2_func.cpp"
-bool over() {
+
+
+namespace lv0 {
+	#include "temp/lv0.cpp"
+}
+namespace lv1 {
+	#include "temp/lv1.cpp"
+}
+namespace lv2 {
+	#include "temp/lv2.cpp"
+}
+namespace lv3 {
+	#include "temp/lv3.cpp"	
+}
+namespace usr {
+	#include "usr.cpp"
+}
+
+pair <int,int> run(vector<vector<int> >a,int now){
+	if(usr::lvl==0) return lv0::ak(a,now);
+	else if(usr::lvl==1) return lv1::ak(a,now);
+	else if(usr::lvl==2) return lv2::ak(a,now);
+	else if(usr::lvl==3) return lv3::ak(a,now);
+}
+
+il bool over() {
 	For(i, 1, 15) For(j, 1, 15) {
 		if (j + 4 <= 15) {
 			if (a[i][j] != 0 && a[i][j] == a[i][j + 1] && a[i][j + 1] == a[i][j + 2] && a[i][j + 2] == a[i][j + 3] && a[i][j + 3] == a[i][j + 4])
@@ -35,16 +60,19 @@ bool over() {
 	}
 	return 0;
 }
-void f_in(char *a) {
+
+il void f_in(char *a) {
 	freopen(a, "r", stdin);
 }
-void f_out(char *a) {
+il void f_out(char *a) {
 	freopen(a, "w", stdout);
 }
+
 #define cl_in() fclose(stdin)
 #define cl_out() fclose(stdout)
+
 pair<int, int> ans;
-void clr(vector<vector<int>/**/> &a, int x, int y) {
+il void clr(vector<vector<int>/**/> &a, int x, int y) {
 	a.resize(0);
 	a.resize(x);
 	for (int i = 0; i < x; i++) {
@@ -52,27 +80,24 @@ void clr(vector<vector<int>/**/> &a, int x, int y) {
 		a[i].resize(y);
 	}
 }
+
 signed main() {
-	puts("how many plays do you want to play?");
+	puts("How many games do you want to play?");
 	int tot;
 	cin >> tot;
 	f_out("log.txt");
 	fclose(stdout);
-	for (int gg = 1; gg <= tot; gg++) {
+	For(gg,1,tot) {
 		clr(a, 18, 18);
 		while (!over()) {
 			int tot = 0;
-			for (int i = 1; i <= 15; i++)
-				for (int j = 1; j <= 15; j++)
-					if (a[i][j] != 0)
-						tot++;
-			if (tot >= 225)
-				break;
-			ans = ai1(a, 1);
+			For(i,1,15) For(j,1,15) if(a[i][j]) tot++;
+			if (tot >= 225) break;
+			ans = run(a, 1);
 			a[ans.first][ans.second] = 1;
 			if (over()) {
 				freopen("log.txt", "a", stdout);
-				puts("ai1 win!");
+				puts("AI win!");
 				For(i, 1, 15) {
 					For(j, 1, 15) {
 						if (a[i][j] == 0) {
@@ -92,17 +117,13 @@ signed main() {
 				goto L3;
 			}
 			tot = 0;
-			for (int i = 1; i <= 15; i++)
-				for (int j = 1; j <= 15; j++)
-					if (a[i][j] != 0)
-						tot++;
-			if (tot >= 225)
-				break;
-			ans = ai2(a, 2);
+			For(i,1,15) For(j,1,15) if(a[i][j]) tot++;
+			if (tot >= 225) break;
+			ans = usr::ak(a, 2);
 			a[ans.first][ans.second] = 2;
 			if (over()) {
 				freopen("log.txt", "a", stdout);
-				puts("ai2 win!");
+				puts("user win!");
 				For(i, 1, 15) {
 					For(j, 1, 15) {
 						if (a[i][j] == 0) {
@@ -123,13 +144,11 @@ signed main() {
 			}
 		}
 		freopen("log.txt","a",stdout);
-L3:
-		;
+		L3:;
 		cout << "Game" << gg << "/" << tot << "\n\n\n";
 		cl_out();
 		f_out("CON");
-		if (gg % 100 == 0 || gg == tot)
-			cout << gg << "/" << tot << "===" << win1 << " " << win2 << '\n';
+		cout << gg << "/" << tot << "===" << win1 << " " << win2 << '\n';
 		cl_out();
 	}
 	freopen("log.txt", "a", stdout);

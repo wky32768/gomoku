@@ -1,6 +1,9 @@
+/*
+ztn的代码，打了5min 
+*/
 #include <bits/stdc++.h>
 using namespace std;
-pair <int,int> ai2(vector<vector<int> >a,int now)  {
+pair <int,int> ak(vector<vector<int> >a,int now)  {
 	int x,y;
 L2:
 	;
