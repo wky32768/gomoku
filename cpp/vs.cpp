@@ -1,4 +1,4 @@
-il void vs(int tot) {
+il pair <int,int> vs(int tot,int test) {
 	For(gg,1,tot) {
 		clr(a, 18, 18);
 		int ping=0;
@@ -10,7 +10,7 @@ il void vs(int tot) {
 				ping=1;
 				break;
 			}
-			ans = run(a, 1);
+			ans = run(a, 1, test);
 			a[ans.first][ans.second] = 1;
 			if (over()) {
 				freopen("log.txt", "a", stdout);
@@ -68,12 +68,14 @@ il void vs(int tot) {
 		freopen("log.txt","a",stdout);
 		cout << "Game" << gg << "/" << tot << "\n\n\n";
 		cl_out();
-		L3:;
+L3:
+		;
 		f_out("CON");
-		cout << gg << "/" << tot << "===" << win1 << " " << win2 << '\n';
+		if(gg%10==0) cout << gg << "/" << tot << "===" << win1 << " " << win2 << '\n';
 		cl_out();
 	}
 	freopen("log.txt", "a", stdout);
 	cout << win1 << " " << win2 << "\n";
 	cl_out();
+	return make_pair(win1,win2);
 }
