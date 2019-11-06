@@ -1,8 +1,6 @@
 /*
 这只是一个随机，测试用的 
 */
-#include <bits/stdc++.h>
-using namespace std;
 pair <int,int> ak(vector<vector<int> >a,int now) {
 	srand((int)time(0));
 	L1:;

@@ -1,7 +1,7 @@
 /*
 网上抄的，菜到爆炸
 */
-int com[15][15],luozi[15][15];
+int com[16][16],luozi[16][16];
 int c,d;
 void jushi() { //这是判断落子重要性的函数
 	int x,y,i,m,n,lianzi1=0,lianzi2=0,life=0;
@@ -106,5 +106,12 @@ pair <int,int> ak(vector<vector<int>/**/>a,int now)  {
 				d=j;
 			}
 		}
-	return make_pair(c,d);
+	if(c>=1 && c<=15 && d>=1 && d<=15) return make_pair(c,d);
+	else {
+		srand((int)time(0));
+		L1:;
+		int x=rnd()%15+1,y=rand()%15+1;
+		if(a[x][y]!=0) goto L1;
+		return make_pair(x,y);
+	}
 }

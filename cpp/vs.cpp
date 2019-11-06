@@ -2,7 +2,6 @@ il pair <int,int> vs(int tot,int test) {
 	For(gg,1,tot) {
 		clr(a, 18, 18);
 		int ping=0;
-
 		while (!over()) {
 			int tot = 0;
 			For(i,1,15) For(j,1,15) if(a[i][j]) tot++;
