@@ -70,10 +70,12 @@ int main() {
 			if(temp.first<temp.second) {
 				f_out("CON");
 				cout<<"Congratulations! You Won AI"<<i<<" !\n";
+				return 0;
 				cl_out();
 			} else {
 				f_out("CON");
 				cout<<"Sorry. You losed at AI"<<i<<" !\n";
+				return 0;
 				cl_out();
 				break;
 			}
