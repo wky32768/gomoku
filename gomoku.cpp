@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#define int long long
 #define il inline
 #define For(i, a, b) for (register int i = a; i <= b; i++)
 using namespace std;
@@ -24,6 +23,7 @@ namespace lv3 {
 namespace lv4 {
 	#include "temp/lv4.cpp"	
 }
+
 namespace usr {
 	#include "usr.cpp"
 }
@@ -46,7 +46,7 @@ pair <int,int> run(vector<vector<int> >a,int now,int test) {
 
 #include "cpp/vs.cpp"
 
-signed main() {
+int main() {
 	freopen("log.txt","w",stdout);
 	cl_out();
 	
