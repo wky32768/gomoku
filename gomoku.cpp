@@ -3,7 +3,7 @@
 #include <bits/stdc++.h>
 
 namespace usr {
-	#include "usr.h"
+	#include "usr.cpp"
 }
 
 #define il inline
