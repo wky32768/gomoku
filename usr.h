@@ -267,7 +267,7 @@ namespace pufanyi {
             }
             return .5;
         } else {
-            auto all = getqz(4);
+            auto all = getqz(3);
             int alll = 0;
             double ans = 0;
             double gs = 0;
@@ -308,7 +308,7 @@ namespace pufanyi {
         gz ans(0, 0);
         for (auto x : all) {
             ch[x] = 1;
-            double nowans = 1. - dfs(10, 2);
+            double nowans = 1. - dfs(13, 2);
 //            cerr << x.first << ' ' << x.second << ' ' << nowans << endl;
             if (nans <= nowans) {
                 nans = nowans;

@@ -1,3 +1,5 @@
+#define QiPu
+
 #include <bits/stdc++.h>
 
 namespace usr {
