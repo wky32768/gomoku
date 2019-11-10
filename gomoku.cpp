@@ -1,5 +1,14 @@
 #define QiPu
 
+#ifdef UNUSED
+#elif defined(__GNUC__)
+# define UNUSED(x) UNUSED_ ## x __attribute__((unused))
+#elif defined(__LCLINT__)
+# define UNUSED(x) /*@unused@*/ x
+#else
+# define UNUSED(x) x
+#endif
+
 #include <bits/stdc++.h>
 
 namespace usr {
@@ -7,7 +16,7 @@ namespace usr {
 }
 
 #define il inline
-#define For(i, a, b) for (register int i = a; i <= b; i++)
+#define For(i, a, b) for (int i = a; i <= b; i++)
 using namespace std;
 
 int x, y, now, win1, win2;
@@ -45,6 +54,7 @@ pair <int,int> run(vector<vector<int> >a,int now,int test) {
 		else if(test==3) return lv3::ak(a,now);
 		else if(test==4) return lv4::ak(a,now);
 	}
+	return make_pair(8,8);
 }
 
 #include "cpp/vs.cpp"

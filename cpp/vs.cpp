@@ -1,12 +1,12 @@
 il pair <int,int> vs(int tot,int test) {
 	For(gg,1,tot) {
 		clr(a, 18, 18);
-		int ping=0;
+//		int ping=0;
 		while (!over()) {
 			int tot = 0;
 			For(i,1,15) For(j,1,15) if(a[i][j]) tot++;
 			if (tot >= 225) {
-				ping=1;
+//				ping=1;
 				break;
 			}
 			ans = run(a, 1, test);
@@ -36,7 +36,7 @@ il pair <int,int> vs(int tot,int test) {
 			tot = 0;
 			For(i,1,15) For(j,1,15) if(a[i][j]) tot++;
 			if (tot >= 225) {
-				ping=1;
+//				ping=1;
 				break;
 			}
 			ans = usr::ak(a, 2);
