@@ -1,5 +1,5 @@
 *.exe
-./log.txt
+log.txt
 *.log
 *.gch
 *.swp
