@@ -1,1 +1,6 @@
 *.exe
+./log.txt
+*.log
+*.gch
+*.swp
+*~

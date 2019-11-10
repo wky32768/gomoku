@@ -25,7 +25,7 @@ namespace lv4 {
 }
 
 namespace usr {
-	#include "usr.cpp"
+	#include "usr.h"
 }
 
 pair <int,int> run(vector<vector<int> >a,int now,int test) {
