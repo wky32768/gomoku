@@ -1,3 +1,5 @@
+// 这份代码请开O2编译，否则会T!!!!! 
+
 namespace pufanyi {
 
 #define Gz make_pair
