@@ -1,5 +1,11 @@
+#define QiPu
+
 #include <bits/stdc++.h>
-#define int long long
+
+namespace usr {
+	#include "usr.h"
+}
+
 #define il inline
 #define For(i, a, b) for (register int i = a; i <= b; i++)
 using namespace std;
@@ -24,9 +30,6 @@ namespace lv3 {
 namespace lv4 {
 	#include "temp/lv4.cpp"	
 }
-namespace usr {
-	#include "usr.cpp"
-}
 
 pair <int,int> run(vector<vector<int> >a,int now,int test) {
 	if(test==-1) {
@@ -46,7 +49,7 @@ pair <int,int> run(vector<vector<int> >a,int now,int test) {
 
 #include "cpp/vs.cpp"
 
-signed main() {
+int main() {
 	freopen("log.txt","w",stdout);
 	cl_out();
 	
@@ -70,10 +73,12 @@ signed main() {
 			if(temp.first<temp.second) {
 				f_out("CON");
 				cout<<"Congratulations! You Won AI"<<i<<" !\n";
+				return 0;
 				cl_out();
 			} else {
 				f_out("CON");
 				cout<<"Sorry. You losed at AI"<<i<<" !\n";
+				return 0;
 				cl_out();
 				break;
 			}
