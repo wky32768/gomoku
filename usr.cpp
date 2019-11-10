@@ -1,4 +1,4 @@
-// 这份代码请开O2编译，否则会T!!!!! 
+// 这份代码请开O2编译，否则会T!!!!!
 
 namespace pufanyi {
 
@@ -115,13 +115,6 @@ namespace pufanyi {
                 }
             }
         }
-//        fout << endl;
-//        for (int i = 1; i <= n; ++i) {
-//            for (int j = 1; j <= n; ++j) {
-//                fout << ch[i][j] << ' ';
-//            }
-//            fout << endl;
-//        }
         return ans;
     }
 
@@ -179,10 +172,6 @@ namespace pufanyi {
             xx.push_back(get(x));
             mx = max(mx, *(--xx.end()));
         }
-//        for (auto x : xx) {
-//            cerr << x << ' ';
-//        }
-//        cerr << '\n';
         vector<gz> ans;
         for (unsigned i = 0; i < xx.size(); ++i) {
             if (abs(xx[i] - mx) <= .2) {
@@ -190,7 +179,6 @@ namespace pufanyi {
                 xx[i] = -1;
             }
         }
-//        fout << "mx = " << mx << ' ' << all.size() << endl;
         if (mx == 3) {
             while (mx > 0 && ans.size() < lim) {
                 mx = 0;
@@ -200,10 +188,8 @@ namespace pufanyi {
                 if (mx <= 0) {
                     break;
                 }
-//                cerr << "mx = " << mx << ' ' << xx.size() << endl;
                 for (unsigned i = 0; i < xx.size(); ++i) {
                     if (xx[i] == mx) {
-//                        cerr << "i = " << i << endl;
                         ans.push_back(all[i]);
                         xx[i] = -1;
                         if (ans.size() == lim) {
@@ -211,6 +197,7 @@ namespace pufanyi {
                         }
                     }
                 }
+                break;
             }
         }
         return ans;
@@ -240,9 +227,6 @@ namespace pufanyi {
                         ch[i][j] = 0;
                         return 1;
                     }
-//                    if (Get(Gz(i, j), my) >= 3) {
-//                        cerr << "win " << i << ' ' << j << ' ' << my << ' ' << Get(Gz(i, j), my) << endl;
-//                    }
                     ch[i][j] = 0;
                 }
             }
@@ -250,9 +234,12 @@ namespace pufanyi {
         return 0;
     }
 
-    inline int dfs2(int my) {
+    inline int dfs2(int my, int dep) {
         if (win(my)) {
             return my;
+        }
+        if (!dep) {
+            return 0;
         }
         auto all = getqz();
         if (!all.size()) {
@@ -260,53 +247,61 @@ namespace pufanyi {
         } else {
             auto now = all[Rnd() % all.size()];
             ch[now] = my;
-            int ans = dfs2(fan[my]);
+            int ans = dfs2(fan[my], dep - 1);
             ch[now] = 0;
             return ans;
         }
     }
 
     inline double GuJia(int my) {
-        const int cs = 4;
+        const int cs = 10;
         double ans = 0;
         for (int i = 1; i <= cs; ++i) {
-            int ans = dfs2(my);
+            int ans = dfs2(my, 10);
             if (ans == my) {
                 ans++;
             } else if (!ans) {
                 ans += .5;
             }
         }
-        return max(.2, ans / cs - .2);
+        return ans / cs;
+    }
+    
+    inline double GuJia_man(int my) {
+        const int cs = 50;
+        double ans = 0;
+        for (int i = 1; i <= cs; ++i) {
+            int ans = dfs2(my, 30);
+            if (ans == my) {
+                ans++;
+            } else if (!ans) {
+                ans += .5;
+            }
+        }
+        return ans / cs;
     }
 
     int yz = 0;
 
     inline double dfs(const int dep, int my) {
-//        for (int i = 1; i <= n; ++i) {
-//            for (int j = 1; j <= n; ++j) {
-//                cerr << ch[i][j] << ' ';
-//            }
-//            cerr << endl;
-//        }
         if (win(my)) {
-//            fout << "dep Win = " << dep << endl;
             return 1;
         }
-        if (!dep || clock() - clo > 5000) {
-            if (!dep) {
-                yz++;
-            }
-            return GuJia(my);
+        double ans = GuJia(my);
+        if (ans >= .9) {
+            return .05 + GuJia_man(my) * .9;
+        }
+        if (!dep || clock() - clo > 1000) {
+            yz++;
+            return .05 + GuJia_man(my) * .9;
         } else {
-            auto all = getqz(2);
+            auto all = getqz();
             double ans = 0;
             random_shuffle(all.begin(), all.end());
-//            fout << "alll = " << gs << ' ' << all.size() << '\n';
-            for (unsigned i = 0; i < 2 && i < all.size(); ++i) {
+            for (unsigned i = 0; i < 3 && i < all.size(); ++i) {
                 ch[all[i]] = my;
                 double anss = 1. - dfs(dep - 1, fan[my]);
-                if (anss >= .99) {
+                if (anss >= .9999999) {
                     ch[all[i]] = 0;
                     return 1.;
                 }
@@ -318,27 +313,30 @@ namespace pufanyi {
     }
 
     inline gz beat(int dep) {
-        // cerr << "beat" << endl;
-        auto all = getqz(10);
+        auto all = getqz(5);
         if (all.empty()) {
             return Gz(8, 8);
         }
-//        for (auto x : all) {
-//            cerr << "all " << x.first << ' ' << x.second << endl;
-//        }
+        if (all.size() == 1u) {
+            cerr << "running...(1/1)" << endl;
+            return *all.begin();
+        }
         double nans = 0;
         gz ans(0, 0);
+        random_shuffle(all.begin(), all.end());
+        int cnt = 0;
         for (auto x : all) {
             ch[x] = 1;
+            clo = clock();
             double nowans = 1. - dfs(dep, 2);
-//            cerr << x.first << ' ' << x.second << ' ' << nowans << endl;
+            cerr << "running...(" << ++cnt << '/' << all.size() << ')' << endl;
             if (nans <= nowans) {
                 nans = nowans;
                 ans = x;
             }
             ch[x] = 0;
         }
-        if (dep > 1 && nans < .1) {
+        if (dep > 1 && nans < .001) {
             return beat(dep - 2);
         }
         cerr << nans <<  ' ' << yz << endl;
@@ -346,13 +344,11 @@ namespace pufanyi {
         fout << nans <<  ' ' << yz << endl;
 #endif
         assert(!ch[ans.first][ans.second]);
-        // ans.first--, ans.second--;
         return ans;
     }
 
     inline gz my() {
         ch.init();
-        // cerr << "hhh" << endl;
         return beat(10);
     }
 
@@ -365,7 +361,6 @@ const int lvl = 4;
 std::pair<int, int> ak(std::vector<std::vector<int> >chessground, const int v) {
     srand((unsigned) time(0));
     pufanyi::yz = 0;
-    pufanyi::clo = clock();
     pufanyi::__ch = chessground;
     pufanyi::__v = v;
     return pufanyi::my();
