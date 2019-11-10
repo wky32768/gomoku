@@ -248,6 +248,36 @@ namespace pufanyi {
         return 0;
     }
 
+    inline int dfs2(int my) {
+        if (win(my)) {
+            return my;
+        }
+        auto all = getqz();
+        if (!all.size()) {
+            return 0;
+        } else {
+            auto now = all[Rnd() % all.size()];
+            ch[now] = my;
+            int ans = dfs2(fan[my]);
+            ch[now] = 0;
+            return ans;
+        }
+    }
+
+    inline double GuJia(int my) {
+        const int cs = 4;
+        double ans = 0;
+        for (int i = 1; i <= cs; ++i) {
+            int ans = dfs2(my);
+            if (ans == my) {
+                ans++;
+            } else if (!ans) {
+                ans += .5;
+            }
+        }
+        return max(.2, ans / cs - .2);
+    }
+
     int yz = 0;
 
     inline double dfs(const int dep, int my) {
@@ -261,19 +291,17 @@ namespace pufanyi {
 //            fout << "dep Win = " << dep << endl;
             return 1;
         }
-        if (!dep) {
+        if (!dep || clock() - clo > 5000) {
             if (!dep) {
                 yz++;
             }
-            return .5;
+            return GuJia(my);
         } else {
-            auto all = getqz(3);
-            int alll = 0;
+            auto all = getqz(2);
             double ans = 0;
-            double gs = 0;
             random_shuffle(all.begin(), all.end());
 //            fout << "alll = " << gs << ' ' << all.size() << '\n';
-            for (unsigned i = 0; i < 3 && i < all.size(); ++i) {
+            for (unsigned i = 0; i < 2 && i < all.size(); ++i) {
                 ch[all[i]] = my;
                 double anss = 1. - dfs(dep - 1, fan[my]);
                 if (anss >= .99) {
@@ -281,21 +309,13 @@ namespace pufanyi {
                     return 1.;
                 }
                 ans = max(ans, anss);
-                if (anss >= .45) {
-                    alll++;
-                    gs += anss;
-                }
                 ch[all[i]] = 0;
             }
-            if (!alll) {
-                return ans;
-            } else {
-                return gs / alll;
-            }
+            return ans;
         }
     }
 
-    inline gz beat() {
+    inline gz beat(int dep) {
         // cerr << "beat" << endl;
         auto all = getqz(10);
         if (all.empty()) {
@@ -308,13 +328,16 @@ namespace pufanyi {
         gz ans(0, 0);
         for (auto x : all) {
             ch[x] = 1;
-            double nowans = 1. - dfs(13, 2);
+            double nowans = 1. - dfs(dep, 2);
 //            cerr << x.first << ' ' << x.second << ' ' << nowans << endl;
             if (nans <= nowans) {
                 nans = nowans;
                 ans = x;
             }
             ch[x] = 0;
+        }
+        if (dep > 1 && nans < .1) {
+            return beat(dep - 2);
         }
         cerr << nans <<  ' ' << yz << endl;
 #ifdef QiPu
@@ -328,7 +351,7 @@ namespace pufanyi {
     inline gz my() {
         ch.init();
         // cerr << "hhh" << endl;
-        return beat();
+        return beat(10);
     }
 
 #undef Gz
