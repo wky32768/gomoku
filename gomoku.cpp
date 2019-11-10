@@ -1,4 +1,9 @@
 #include <bits/stdc++.h>
+
+namespace usr {
+	#include "usr.h"
+}
+
 #define il inline
 #define For(i, a, b) for (register int i = a; i <= b; i++)
 using namespace std;
@@ -22,10 +27,6 @@ namespace lv3 {
 }
 namespace lv4 {
 	#include "temp/lv4.cpp"	
-}
-
-namespace usr {
-	#include "usr.h"
 }
 
 pair <int,int> run(vector<vector<int> >a,int now,int test) {
