@@ -8,7 +8,6 @@
 #else
 # define UNUSED(x) x
 #endif
-
 #include <bits/stdc++.h>
 
 namespace usr {

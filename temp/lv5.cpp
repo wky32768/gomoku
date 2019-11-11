@@ -1,4 +1,4 @@
-// 杩欎唤浠ｇ爜璇峰紑O2缂栬瘧锛屽惁鍒欎細T!!!!!
+// 这份代码请开O2编译，否则会T!!!!!
 
 namespace pufanyi {
 
@@ -254,7 +254,7 @@ namespace pufanyi {
     }
 
     inline double GuJia(int my) {
-        const int cs = 10;
+        const int cs = 5;
         double ans = 0;
         for (int i = 1; i <= cs; ++i) {
             int ans = dfs2(my, 10);
@@ -266,7 +266,7 @@ namespace pufanyi {
         }
         return ans / cs;
     }
-    
+
     inline double GuJia_man(int my) {
         const int cs = 50;
         double ans = 0;
@@ -291,7 +291,7 @@ namespace pufanyi {
         if (ans >= .9) {
             return .05 + GuJia_man(my) * .9;
         }
-        if (!dep || clock() - clo > 1000) {
+        if (!dep || clock() - clo > 500) {
             yz++;
             return .05 + GuJia_man(my) * .9;
         } else {
