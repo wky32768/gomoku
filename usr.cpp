@@ -16,6 +16,7 @@ namespace pufanyi {
     mt19937 Rnd(time(0));
 
     typedef pair<int, int> gz;
+    typedef long long LL;
 
 #ifdef QiPu
     ofstream fout("Pu.log");
@@ -253,6 +254,111 @@ namespace pufanyi {
         }
     }
 
+    class Table {
+
+            static const int Sz = 8;
+
+            struct Zt {
+                LL cs;
+                double qz;
+
+                Zt (LL b = 0, double c = 0) {
+                    cs = b, qz = c;
+                }
+            };
+
+            map<vector<LL>, Zt> mp;
+
+        public:
+
+            Table() {
+                ifstream fin("Data/pufanyi/GuJia.data");
+                LL b;
+                double c;
+                mp.clear();
+                vector<LL> a;
+                while (fin >> b >> c) {
+                    a.clear();
+                    for (int i = 1; i <= Sz; ++i) {
+                        LL x;
+                        fin >> x;
+                        a.push_back(x);
+                    }
+                    mp[a] = Zt(b, c);
+                }
+                fin.close();
+            }
+
+            ~Table() {
+                ofstream fout("Data/pufanyi/GuJia.data");
+                for (auto x : mp) {
+                    if (Rnd() % (x.second.cs + 1)) {
+                        fout << x.second.cs << ' ' << x.second.qz << ' ';
+                        for (auto y : x.first) {
+                            fout << y << ' ';
+                        }
+                    }
+                }
+                fout.close();
+            }
+
+            inline vector<LL> gethsh(int my) {
+                vector<LL> ans;
+                ans.clear();
+                for (int i = 1; i <= Sz; ++i) {
+                    LL nowx = 0;
+                    for (int j = 1; j <= n; ++j) {
+                        nowx *= 3;
+                        if (my == 1) {
+                            nowx += ch[(i << 1) - 1][j];
+                        } else {
+                            nowx += fan[ch[(i << 1) - 1][j]];
+                        }
+                    }
+                    if (i != Sz) {
+                        for (int j = 1; j <= n; ++j) {
+                            nowx *= 3;
+                            if (my == 1) {
+                                nowx += ch[(i << 1) - 1][j];
+                            } else {
+                                nowx += fan[ch[(i << 1) - 1][j]];
+                            }
+                        }
+                    }
+                    ans.push_back(nowx);
+                }
+                return ans;
+            }
+
+            inline void insert(int my, double gj) {
+                auto xx = gethsh(my);
+                auto now = mp.find(xx);
+                if (now == mp.end()) {
+                    mp[xx] = Zt(1, gj);
+                } else {
+                    double sum = now->second.qz * now->second.cs;
+                    now->second.cs++;
+                    sum += gj;
+                    now->second.qz = sum / now->second.cs;
+                }
+            }
+
+            inline unsigned size() {
+                return mp.size();
+            }
+
+            inline pair<int, double> find(int my) {
+                auto now = gethsh(my);
+                auto it = mp.find(now);
+                if (it == mp.end()) {
+                    return make_pair(0, .5);
+                } else {
+                    return make_pair((int) (it->second).cs, (it->second).qz);
+                }
+            }
+
+    } tab;
+
     inline double GuJia(int my) {
         const int cs = 5;
         double ans = 0;
@@ -287,8 +393,12 @@ namespace pufanyi {
         if (win(my)) {
             return 1;
         }
+        auto __ans = tab.find(my);
+        if (Rnd() % (__ans.first + 1)) {
+            return __ans.second;
+        }
         double ans = GuJia(my);
-        if (ans >= .9) {
+        if (ans >= .8) {
             return .05 + GuJia_man(my) * .9;
         }
         if (!dep || clock() - clo > 500) {
@@ -303,10 +413,14 @@ namespace pufanyi {
                 double anss = 1. - dfs(dep - 1, fan[my]);
                 if (anss >= .9999999) {
                     ch[all[i]] = 0;
+                    tab.insert(my, 1);
                     return 1.;
                 }
                 ans = max(ans, anss);
                 ch[all[i]] = 0;
+            }
+            if (clock() - clo <= 500) {
+                tab.insert(my, ans);
             }
             return ans;
         }
@@ -344,12 +458,13 @@ namespace pufanyi {
         fout << nans <<  ' ' << yz << endl;
 #endif
         assert(!ch[ans.first][ans.second]);
+        cerr << tab.size() << endl;
         return ans;
     }
 
     inline gz my() {
         ch.init();
-        return beat(10);
+        return beat(12);
     }
 
 #undef Gz
