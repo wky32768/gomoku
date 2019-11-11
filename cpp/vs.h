@@ -13,7 +13,7 @@ il pair <int,int> vs(int tot,int test) {
 			a[ans.first][ans.second] = gg%2+1;
 			if (over()) {
 				freopen("log.txt", "a", stdout);
-				printf("这是第%d局",gg); 
+				printf("game ",gg); 
 				puts("AI win!");
 				For(i, 1, 15) {
 					For(j, 1, 15) {
@@ -44,6 +44,7 @@ il pair <int,int> vs(int tot,int test) {
 			a[ans.first][ans.second] = 2-gg%2;
 			if (over()) {
 				freopen("log.txt", "a", stdout);
+				printf("game ",gg);
 				puts("user win!");
 				For(i, 1, 15) {
 					For(j, 1, 15) {

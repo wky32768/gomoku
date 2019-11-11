@@ -21,7 +21,7 @@ using namespace std;
 int x, y, now, win1, win2;
 vector<vector<int>/**/> a;
 
-#include "cpp/prepare.cpp"
+#include "cpp/prepare.h"
 
 namespace usr {
 	#include "usr.cpp"
@@ -65,17 +65,17 @@ pair <int,int> run(vector<vector<int> >a,int now,int test) {
 	return make_pair(8,8);
 }
 
-#include "cpp/vs.cpp"
+#include "cpp/vs.h"
 
 int main() {
 	freopen("log.txt","w",stdout);
 	cl_out();
 	
 	f_out("CON");
-	int mode=MessageBox(NULL,"1v1选是,能力测试选否","模式选择", MB_YESNOCANCEL|MB_ICONASTERISK);
+	int mode=MessageBox(NULL,"1v1->Yes,test->No","Choose mode", MB_YESNOCANCEL|MB_ICONASTERISK);
 	cl_out();
 
-	if(mode=='1') {
+	if(mode==6) {
 		f_out("CON");
 		puts("How many games do you want to play?");
 		int tot;
