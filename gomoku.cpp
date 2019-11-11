@@ -79,7 +79,7 @@ int main() {
 	} else {
 		for(int i=0;i<=4;i++) {
 			win1=win2=0;
-			pair <int,int> temp=vs(100,i);
+			pair <int,int> temp=vs(10,i);
 			if(temp.first<temp.second) {
 				f_out("CON");
 				cout<<"Congratulations! You Won AI"<<i<<" !\n";
