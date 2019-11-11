@@ -9,10 +9,11 @@ il pair <int,int> vs(int tot,int test) {
 //				ping=1;
 				break;
 			}
-			ans = run(a, 1, test);
-			a[ans.first][ans.second] = 1;
+			ans = run(a, gg%2+1, test);
+			a[ans.first][ans.second] = gg%2+1;
 			if (over()) {
 				freopen("log.txt", "a", stdout);
+				printf("这是第%d局",gg); 
 				puts("AI win!");
 				For(i, 1, 15) {
 					For(j, 1, 15) {
@@ -39,8 +40,8 @@ il pair <int,int> vs(int tot,int test) {
 //				ping=1;
 				break;
 			}
-			ans = usr::ak(a, 2);
-			a[ans.first][ans.second] = 2;
+			ans = usr::ak(a, 2-gg%2);
+			a[ans.first][ans.second] = 2-gg%2;
 			if (over()) {
 				freopen("log.txt", "a", stdout);
 				puts("user win!");
@@ -70,7 +71,7 @@ il pair <int,int> vs(int tot,int test) {
 L3:
 		;
 		f_out("CON");
-		if(gg%10==0) cout << gg << "/" << tot << "===" << win1 << " " << win2 << '\n';
+		cout << gg << "/" << tot << "===" << win1 << " " << win2 << '\n';
 		cl_out();
 	}
 	freopen("log.txt", "a", stdout);

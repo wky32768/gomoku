@@ -1,3 +1,4 @@
+//pfyakking
 #define QiPu
 
 #ifdef UNUSED
@@ -8,13 +9,11 @@
 #else
 # define UNUSED(x) x
 #endif
+//pfyakking
 
+#pragma GCC optimize(3)
 #include <bits/stdc++.h>
-
-namespace usr {
-	#include "usr.cpp"
-}
-
+#include <windows.h>
 #define il inline
 #define For(i, a, b) for (int i = a; i <= b; i++)
 using namespace std;
@@ -24,23 +23,27 @@ vector<vector<int>/**/> a;
 
 #include "cpp/prepare.cpp"
 
+namespace usr {
+	#include "usr.cpp"
+}
+
 namespace lv0 {
-	#include "temp/lv0.cpp"
+	#include "ai/lv0.cpp"
 }
 namespace lv1 {
-	#include "temp/lv1.cpp"
+	#include "ai/lv1.cpp"
 }
 namespace lv2 {
-	#include "temp/lv2.cpp"
+	#include "ai/lv2.cpp"
 }
 namespace lv3 {
-	#include "temp/lv3.cpp"	
+	#include "ai/lv3.cpp"	
 }
 namespace lv4 {
-	#include "temp/lv4.cpp"	
+	#include "ai/lv4.cpp"	
 }
 namespace lv5 {
-	#include "temp/lv5.cpp"	
+	#include "ai/lv5.cpp"	
 }
 
 pair <int,int> run(vector<vector<int> >a,int now,int test) {
@@ -50,7 +53,7 @@ pair <int,int> run(vector<vector<int> >a,int now,int test) {
 		else if(usr::lvl==2) return lv2::ak(a,now);
 		else if(usr::lvl==3) return lv3::ak(a,now);
 		else if(usr::lvl==4) return lv4::ak(a,now);
-		else if(usr::lv1==5) return lv5::ak(a.now);
+		else if(usr::lvl==5) return lv5::ak(a,now);
 	} else {
 		if(test==0) return lv0::ak(a,now);
 		else if(test==1) return lv1::ak(a,now);
@@ -69,12 +72,10 @@ int main() {
 	cl_out();
 	
 	f_out("CON");
-	puts("1:AI 1v1");
-	puts("2:test your AI");
+	int mode=MessageBox(NULL,"1v1选是，能力测试选否","模式选择", MB_YESNOCANCEL|MB_ICONASTERISK); 
 	cl_out();
 
-	char ch=getchar();
-	if(ch=='1') {
+	if(mode=='1') {
 		f_out("CON");
 		puts("How many games do you want to play?");
 		int tot;
@@ -82,18 +83,16 @@ int main() {
 		cl_out();
 		vs(tot,-1);
 	} else {
-		for(int i=0;i<=4;i++) {
+		For(i,0,5) {
 			win1=win2=0;
-			pair <int,int> temp=vs(10,i);
-			if(temp.first<temp.second) {
+			pair <int,int> ai=vs(15,i);
+			if(ai.first<ai.second) {
 				f_out("CON");
 				cout<<"Congratulations! You Won AI"<<i<<" !\n";
-				return 0;
 				cl_out();
 			} else {
 				f_out("CON");
 				cout<<"Sorry. You losed at AI"<<i<<" !\n";
-				return 0;
 				cl_out();
 				break;
 			}
