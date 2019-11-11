@@ -39,6 +39,9 @@ namespace lv3 {
 namespace lv4 {
 	#include "temp/lv4.cpp"	
 }
+namespace lv5 {
+	#include "temp/lv5.cpp"	
+}
 
 pair <int,int> run(vector<vector<int> >a,int now,int test) {
 	if(test==-1) {
@@ -47,12 +50,14 @@ pair <int,int> run(vector<vector<int> >a,int now,int test) {
 		else if(usr::lvl==2) return lv2::ak(a,now);
 		else if(usr::lvl==3) return lv3::ak(a,now);
 		else if(usr::lvl==4) return lv4::ak(a,now);
+		else if(usr::lv1==5) return lv5::ak(a.now);
 	} else {
 		if(test==0) return lv0::ak(a,now);
 		else if(test==1) return lv1::ak(a,now);
 		else if(test==2) return lv2::ak(a,now);
 		else if(test==3) return lv3::ak(a,now);
 		else if(test==4) return lv4::ak(a,now);
+		else if(test==5) return lv5::ak(a,now);
 	}
 	return make_pair(8,8);
 }
