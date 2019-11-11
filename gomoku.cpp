@@ -72,7 +72,7 @@ int main() {
 	cl_out();
 	
 	f_out("CON");
-	int mode=MessageBox(NULL,"1v1选是，能力测试选否","模式选择", MB_YESNOCANCEL|MB_ICONASTERISK); 
+	int mode=MessageBox(NULL,"1v1閫夋槸,鑳藉姏娴嬭瘯閫夊惁","妯″紡閫夋嫨", MB_YESNOCANCEL|MB_ICONASTERISK);
 	cl_out();
 
 	if(mode=='1') {
