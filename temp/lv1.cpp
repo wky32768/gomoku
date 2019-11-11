@@ -95,7 +95,7 @@ void jushi() { //这是判断落子重要性的函数
 			}
 		}
 }
-pair <int,int> ak(vector<vector<int>/**/>a,int now)  {
+pair <int,int> ak(vector<vector<int>/**/>a,int UNUSED(now))  {
 	int i,j,max=0;
 	jushi();
 	for(i=1; i<=15; i++)

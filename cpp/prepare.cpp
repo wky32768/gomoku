@@ -31,8 +31,8 @@ il bool over() {
 	return 0;
 }
 
-il void f_in(char *a) {freopen(a, "r", stdin);}
-il void f_out(char *a) {freopen(a, "w", stdout);}
+il void f_in(const char *a) {freopen(a, "r", stdin);}
+il void f_out(const char *a) {freopen(a, "w", stdout);}
 
 #define cl_in() fclose(stdin)
 #define cl_out() fclose(stdout)
