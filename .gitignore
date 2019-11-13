@@ -4,5 +4,5 @@ log.txt
 *.gch
 *.swp
 *~
-./tmp/*
-./Data/*
+tmp/*
+Data/*
