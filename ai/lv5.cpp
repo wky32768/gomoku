@@ -180,7 +180,7 @@ namespace pufanyi {
                 xx[i] = -1;
             }
         }
-        if (mx == 3) {
+        if (mx <= 3) {
             while (mx > 0 && ans.size() < lim) {
                 mx = 0;
                 for (auto x : xx) {
@@ -198,7 +198,6 @@ namespace pufanyi {
                         }
                     }
                 }
-                break;
             }
         }
         return ans;
@@ -272,7 +271,7 @@ namespace pufanyi {
         public:
 
             Table() {
-                ifstream fin("Data/pufanyi/GuJia.data");
+                ifstream fin("ai/Data/pufanyi/GuJia.data");
                 LL b;
                 double c;
                 mp.clear();
@@ -290,9 +289,9 @@ namespace pufanyi {
             }
 
             ~Table() {
-                ofstream fout("Data/pufanyi/GuJia.data");
+                ofstream fout("ai/Data/pufanyi/GuJia.data");
                 for (auto x : mp) {
-                    if (x.second.qz >= .97 || x.second.qz <= .03 || (x.second.cs > 1 && Rnd() % x.second.cs)) {
+                    if (Rnd() % (x.second.cs + 2)) {
                         fout << x.second.cs << ' ' << x.second.qz << ' ';
                         for (auto y : x.first) {
                             fout << y << ' ';
@@ -377,7 +376,7 @@ namespace pufanyi {
         const int cs = 50;
         double ans = 0;
         for (int i = 1; i <= cs; ++i) {
-            int anss = dfs2(my, 30);
+            int anss = dfs2(my, 50);
             if (anss == my) {
                 ans++;
             } else if (!anss) {
@@ -409,7 +408,7 @@ namespace pufanyi {
             auto all = getqz();
             double ans = 0;
             random_shuffle(all.begin(), all.end());
-            for (unsigned i = 0; i < 3 && i < all.size(); ++i) {
+            for (unsigned i = 0; i < 4 && i < all.size(); ++i) {
                 ch[all[i]] = my;
                 double anss = 1. - dfs(dep - 1, fan[my]);
                 if (anss >= .9999999) {
@@ -428,7 +427,7 @@ namespace pufanyi {
     }
 
     inline gz beat(int dep) {
-        auto all = getqz(5);
+        auto all = getqz(3);
         if (all.empty()) {
             return Gz(8, 8);
         }
@@ -454,7 +453,7 @@ namespace pufanyi {
         if (dep > 1 && nans < .001) {
             return beat(dep - 2);
         }
-        cerr << nans <<  ' ' << yz << endl;
+        cerr << "AI: " << nans <<  ' ' << yz << endl;
 #ifdef QiPu
         fout << nans <<  ' ' << yz << endl;
 #endif
