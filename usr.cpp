@@ -292,7 +292,7 @@ namespace pufanyi {
             ~Table() {
                 ofstream fout("Data/pufanyi/GuJia.data");
                 for (auto x : mp) {
-                    if (Rnd() % (x.second.cs + 1)) {
+                    if (x.second.qz >= .97 || x.second.qz <= .03 || (x.second.cs > 1 && Rnd() % x.second.cs)) {
                         fout << x.second.cs << ' ' << x.second.qz << ' ';
                         for (auto y : x.first) {
                             fout << y << ' ';
@@ -363,10 +363,10 @@ namespace pufanyi {
         const int cs = 5;
         double ans = 0;
         for (int i = 1; i <= cs; ++i) {
-            int ans = dfs2(my, 10);
-            if (ans == my) {
+            int anss = dfs2(my, 20);
+            if (anss == my) {
                 ans++;
-            } else if (!ans) {
+            } else if (!anss) {
                 ans += .5;
             }
         }
@@ -377,10 +377,10 @@ namespace pufanyi {
         const int cs = 50;
         double ans = 0;
         for (int i = 1; i <= cs; ++i) {
-            int ans = dfs2(my, 30);
-            if (ans == my) {
+            int anss = dfs2(my, 30);
+            if (anss == my) {
                 ans++;
-            } else if (!ans) {
+            } else if (!anss) {
                 ans += .5;
             }
         }
@@ -398,6 +398,7 @@ namespace pufanyi {
             return __ans.second;
         }
         double ans = GuJia(my);
+//        cerr << "ans = " << ans << endl;
         if (ans >= .8) {
             return .05 + GuJia_man(my) * .9;
         }
