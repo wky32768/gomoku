@@ -1,5 +1,3 @@
-// 这份代码请开O2编译，否则会T!!!!!
-
 namespace pufanyi {
 
 #define Gz make_pair
@@ -22,63 +20,10 @@ namespace pufanyi {
     ofstream fout("Pu.log");
 #endif
 
-    vector<vector<int> > __ch;
     int __v;
     double clo;
 
-    class QiPan {
 
-            int ch[maxn][maxn];
-
-        public:
-
-            inline void init() {
-                memset(ch, 0, sizeof(ch));
-                for (int i = 1; i <= siz; ++i) {
-                    for (int j = 1; j <= siz; ++j) {
-                        ch[i][j] = __ch[i][j];
-                    }
-                }
-                if (__v == 2) {
-                    for (int i = 1; i <= siz; ++i) {
-                        for (int j = 1; j <= siz; ++j) {
-                            if (ch[i][j] == 1) {
-                                ch[i][j] = 2;
-                            } else if (ch[i][j] == 2) {
-                                ch[i][j] = 1;
-                            }
-                        }
-                    }
-                }
-                cerr << endl;
-#ifndef noqipu
-                for (int i = 1; i <= n; ++i) {
-                    for (int j = 1; j <= n; ++j) {
-                        cerr << ch[i][j] << ' ';
-                    }
-                    cerr << endl;
-                }
-#endif
-#ifdef QiPu
-                fout << endl;
-                for (int i = 1; i <= n; ++i) {
-                    for (int j = 1; j <= n; ++j) {
-                        fout << ch[i][j] << ' ';
-                    }
-                    fout << endl;
-                }
-#endif
-            }
-
-            inline int& operator [] (const gz x) {
-                return ch[x.first][x.second];
-            }
-
-            inline int* operator [] (const int x) {
-                return ch[x];
-            }
-
-    } ch;
 
     const int fxx[] = {0, 0, 1, -1, 1, 1, -1, -1};
     const int fyy[] = {1, -1, 0, 0, -1, 1, 1, -1};
